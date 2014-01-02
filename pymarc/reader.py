@@ -22,7 +22,7 @@ class MARCReader(Reader):
         from pymarc import MARCReader
 
         ## pass in a file object
-        reader = MARCReader(file('file.dat'))
+        reader = MARCReader(open('open.dat'))
         for record in reader:
             ...
 
@@ -34,7 +34,7 @@ class MARCReader(Reader):
     If you would like to have your Record object contain unicode strings
     use the to_unicode parameter:
 
-        reader = MARCReader(file('file.dat'), to_unicode=True)
+        reader = MARCReader(open('open.dat'), to_unicode=True)
 
     This will decode from MARC-8 or UTF-8 depending on the value in the 
     MARC leader at position 9. 
@@ -43,7 +43,7 @@ class MARCReader(Reader):
     is utf-8 encoded without the leader set appropriately you can use 
     the force_utf8 parameter:
 
-        reader = MARCReader(file('file.dat'), to_unicode=True,
+        reader = MARCReader(open('open.dat'), to_unicode=True,
             force_utf8=True)
     
     If you find yourself in the unfortunate position of having data that is 
@@ -98,7 +98,7 @@ def map_records(f, *files):
     >>> def print_title(r): 
     >>>     print r['245']
     >>> 
-    >>> map_records(print_title, file('marc.dat'))
+    >>> map_records(print_title, open('marc.dat'))
     """
     for file in files:
         map(f, MARCReader(file))

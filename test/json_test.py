@@ -10,8 +10,8 @@ except ImportError:
 
 class JsonReaderTest(unittest.TestCase):
 	def setUp(self):
-		self.reader = pymarc.JSONReader(file('test/test.json'))
-		self.in_json = json.load(file('test/test.json'),strict=False)
+		self.reader = pymarc.JSONReader(open('test/test.json'))
+		self.in_json = json.load(open('test/test.json'),strict=False)
 	
 	def testRoundtrip(self):
 		"""Tests that result of loading records from the test file
@@ -27,7 +27,7 @@ class JsonReaderTest(unittest.TestCase):
 class JsonTest(unittest.TestCase):
 
     def setUp(self):
-        self.reader = pymarc.MARCReader(file('test/test.dat'))
+        self.reader = pymarc.MARCReader(open('test/test.dat'))
         self._record = pymarc.Record()
         field = pymarc.Field(
             tag='245',

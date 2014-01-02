@@ -11,7 +11,7 @@ class MARCReaderFileTest(unittest.TestCase):
     """ 
 
     def setUp(self):
-        self.reader = pymarc.MARCReader(file('test/test.dat'))
+        self.reader = pymarc.MARCReader(open('test/test.dat'))
 
     def test_iterator(self):
         count = 0
@@ -24,14 +24,14 @@ class MARCReaderFileTest(unittest.TestCase):
         self.count = 0
         def f(r):
             self.count += 1
-        pymarc.map_records(f, file('test/test.dat'))
+        pymarc.map_records(f, open('test/test.dat'))
         self.assertEquals(self.count, 10, 'map_records appears to work')
 
     def test_multi_map_records(self):
         self.count = 0
         def f(r):
             self.count += 1
-        pymarc.map_records(f, file('test/test.dat'), file('test/test.dat'))
+        pymarc.map_records(f, open('test/test.dat'), open('test/test.dat'))
         self.assertEquals(self.count, 20, 'map_records appears to work')
 
     def test_string(self):
@@ -64,7 +64,7 @@ class MARCReaderFileTest(unittest.TestCase):
 class MARCReaderStringTest(MARCReaderFileTest):
 
     def setUp(self):
-        raw = file('test/test.dat').read()
+        raw = open('test/test.dat').read()
         self.reader = pymarc.reader.MARCReader(raw)
 
     # inherit same tests from MARCReaderTestFile

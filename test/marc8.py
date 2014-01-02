@@ -8,7 +8,7 @@ from pymarc import marc8_to_unicode, Field, Record, MARCReader, MARCWriter
 class MARC8Test(TestCase):
     
     def test_marc8_reader(self):
-        reader = MARCReader(file('test/marc8.dat'))
+        reader = MARCReader(open('test/marc8.dat'))
         r =  next(reader)
         self.assertEquals(type(r), Record)
         utitle = r['240']['a']
@@ -16,7 +16,7 @@ class MARC8Test(TestCase):
         self.assertEquals(utitle, 'De la solitude \xe1a la communaut\xe2e.')
 
     def test_marc8_reader_to_unicode(self):
-        reader = MARCReader(file('test/marc8.dat'), to_unicode=True)
+        reader = MARCReader(open('test/marc8.dat'), to_unicode=True)
         r =  next(reader)
         self.assertEquals(type(r), Record)
         utitle = r['240']['a']
@@ -24,7 +24,7 @@ class MARC8Test(TestCase):
         self.assertEquals(utitle, 'De la solitude \xe0 la communaut\xe9.')
         
     def test_marc8_reader_to_unicode_bad_eacc_sequence(self):
-        reader = MARCReader(file('test/bad_eacc_encoding.dat'), to_unicode=True, hide_utf8_warnings=True)
+        reader = MARCReader(open('test/bad_eacc_encoding.dat'), to_unicode=True, hide_utf8_warnings=True)
         try:
             r =  next(reader)
             self.assertFalse("Was able to decode invalid MARC8") 
@@ -32,7 +32,7 @@ class MARC8Test(TestCase):
             self.assertTrue("Caught UnicodeDecodeError as expected") 
 
     def test_marc8_reader_to_unicode_bad_escape(self):
-        reader = MARCReader(file('test/bad_marc8_escape.dat'), to_unicode=True)
+        reader = MARCReader(open('test/bad_marc8_escape.dat'), to_unicode=True)
         r =  next(reader)
         self.assertEquals(type(r), Record)
         upublisher = r['260']['b']
@@ -40,8 +40,8 @@ class MARC8Test(TestCase):
         self.assertEquals(upublisher, 'La Soci\xe9t\x1b,')
 
     def test_marc8_to_unicode(self):
-        marc8_file = file('test/test_marc8.txt')
-        utf8_file = file('test/test_utf8.txt')
+        marc8_file = open('test/test_marc8.txt')
+        utf8_file = open('test/test_utf8.txt')
         count = 0
 
         while True:
