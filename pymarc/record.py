@@ -35,7 +35,7 @@ except ImportError:
         ``next`` (http://docs.python.org/library/functions.html#next)
         was introduced in python 2.6 - and if we are here
         (no ``izip_longest``), than we need to define this."""
-        return obj.next()
+        return next(obj)
 
     def izip_longest(*args, **kwds):
         """
@@ -152,7 +152,7 @@ class Record(object):
         self.__pos = 0
         return self
 
-    def next(self):
+    def __next__(self):
         if self.__pos >= len(self.fields):
             raise StopIteration
         self.__pos += 1 

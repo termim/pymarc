@@ -46,19 +46,19 @@ class MARCReaderFileTest(unittest.TestCase):
     def test_url(self):
         reader = pymarc.MARCReader(urllib.urlopen(
             'http://inkdroid.org/data/marc.dat'))
-        record = reader.next()
+        record = next(reader)
         self.assertEqual(record['245']['a'], 'Python pocket reference /')
 
     def test_codecs(self):
         import codecs
         reader = pymarc.MARCReader(codecs.open('test/test.dat',
             encoding='utf-8'))
-        record = reader.next()
+        record = next(reader)
         self.assertEqual(record['245']['a'], u'ActivePerl with ASP and ADO /')
 
     def test_bad_indicator(self):
         reader = pymarc.MARCReader(open('test/bad_indicator.dat'))
-        record = reader.next()
+        record = next(reader)
         self.assertEqual(record['245']['a'], 'Aristocrats of color :')
 
 class MARCReaderStringTest(MARCReaderFileTest):

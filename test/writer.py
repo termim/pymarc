@@ -16,7 +16,7 @@ class MARCWriterTest(unittest.TestCase):
 
         # read it back in
         reader = pymarc.MARCReader(file('test/writer-test.dat'))
-        record = reader.next()
+        record = next(reader)
 
         # remove it
         os.remove('test/writer-test.dat')

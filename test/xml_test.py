@@ -84,7 +84,7 @@ class XmlTest(unittest.TestCase):
         # reload pymarc so it picks up the new sys.stderr
         reload(pymarc)
         # get problematic record
-        record = pymarc.reader.MARCReader(open('test/utf8_errors.dat')).next()
+        record = next(pymarc.reader.MARCReader(open('test/utf8_errors.dat')))
         # record_to_xml() with quiet set to False should generate errors
         #   and write them to sys.stderr
         xml = pymarc.record_to_xml(record, quiet=False)
@@ -115,7 +115,7 @@ class XmlTest(unittest.TestCase):
         """ Tests the 'namespace' parameter of the record_to_xml() method
         """
         # get a test record
-        record = pymarc.reader.MARCReader(open('test/test.dat')).next()
+        record = next(pymarc.reader.MARCReader(open('test/test.dat')))
         # record_to_xml() with quiet set to False should generate errors
         #   and write them to sys.stderr
         xml = pymarc.record_to_xml(record, namespace=False)

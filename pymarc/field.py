@@ -114,7 +114,7 @@ class Field(object):
                 break
             num_code -= 1
 
-    def next(self):
+    def __next__(self):
         "Needed for iteration."
         while self.__pos < len(self.subfields):
             subfield = (self.subfields[ self.__pos ],

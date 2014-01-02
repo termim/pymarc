@@ -70,7 +70,7 @@ class MARCReader(Reader):
         else: 
             self.file_handle = StringIO(marc_target)
 
-    def next(self):
+    def __next__(self):
         """
         To support iteration. 
         """
@@ -124,7 +124,7 @@ class JSONReader(Reader):
         	self.iter = iter([self.records])
         return self
 
-    def next(self):
+    def __next__(self):
         jobj = next(self.iter)
         rec = Record()
         rec.leader = jobj['leader']

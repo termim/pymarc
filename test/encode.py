@@ -9,7 +9,7 @@ class Encode(unittest.TestCase):
         original = file('test/one.dat').read()
         # create a record object for the file
         reader = MARCReader(file('test/one.dat'))
-        record = reader.next()
+        record = next(reader)
         # make sure original data is the same as 
         # the record encoded as MARC
         raw = record.as_marc()
@@ -20,7 +20,7 @@ class Encode(unittest.TestCase):
         original = file('test/alphatag.dat').read()
         # create a record object for the file
         reader = MARCReader(file('test/alphatag.dat'))
-        record = reader.next()
+        record = next(reader)
         # make sure original data is the same as 
         # the record encoded as MARC
         raw = record.as_marc()

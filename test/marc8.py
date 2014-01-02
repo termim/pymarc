@@ -9,7 +9,7 @@ class MARC8Test(TestCase):
     
     def test_marc8_reader(self):
         reader = MARCReader(file('test/marc8.dat'))
-        r =  reader.next()
+        r =  next(reader)
         self.assertEquals(type(r), Record)
         utitle = r['240']['a']
         self.assertEquals(type(utitle), str)
@@ -17,7 +17,7 @@ class MARC8Test(TestCase):
 
     def test_marc8_reader_to_unicode(self):
         reader = MARCReader(file('test/marc8.dat'), to_unicode=True)
-        r =  reader.next()
+        r =  next(reader)
         self.assertEquals(type(r), Record)
         utitle = r['240']['a']
         self.assertEquals(type(utitle), unicode)
@@ -26,14 +26,14 @@ class MARC8Test(TestCase):
     def test_marc8_reader_to_unicode_bad_eacc_sequence(self):
         reader = MARCReader(file('test/bad_eacc_encoding.dat'), to_unicode=True, hide_utf8_warnings=True)
         try:
-            r =  reader.next()
+            r =  next(reader)
             self.assertFalse("Was able to decode invalid MARC8") 
         except UnicodeDecodeError:
             self.assertTrue("Caught UnicodeDecodeError as expected") 
 
     def test_marc8_reader_to_unicode_bad_escape(self):
         reader = MARCReader(file('test/bad_marc8_escape.dat'), to_unicode=True)
-        r =  reader.next()
+        r =  next(reader)
         self.assertEquals(type(r), Record)
         upublisher = r['260']['b']
         self.assertEquals(type(upublisher), unicode)
@@ -63,14 +63,14 @@ class MARC8Test(TestCase):
         writer.close()
 
         reader = MARCReader(open('test/foo'), to_unicode=True)
-        record = reader.next()
+        record = next(reader)
         self.assertEqual(record['245']['a'], unichr(0x1234))
 
         os.remove('test/foo')
 
     def test_reading_utf8_with_flag(self):
         reader = MARCReader(open('test/utf8_with_leader_flag.dat'))
-        record = reader.next()
+        record = next(reader)
         self.assertEquals(type(record), Record)
         utitle = record['240']['a']
         self.assertEquals(type(utitle), str)
@@ -79,7 +79,7 @@ class MARC8Test(TestCase):
 
         reader = MARCReader(open('test/utf8_with_leader_flag.dat'), 
                             to_unicode=True)
-        record = reader.next()
+        record = next(reader)
         self.assertEquals(type(record), Record)
         utitle = record['240']['a']
         self.assertEquals(type(utitle), unicode)
@@ -88,7 +88,7 @@ class MARC8Test(TestCase):
 
     def test_reading_utf8_without_flag(self):
         reader = MARCReader(open('test/utf8_without_leader_flag.dat'))
-        record = reader.next()
+        record = next(reader)
         self.assertEquals(type(record), Record)
         utitle = record['240']['a']
         self.assertEquals(type(utitle), str)
@@ -97,7 +97,7 @@ class MARC8Test(TestCase):
 
         reader = MARCReader(open('test/utf8_without_leader_flag.dat'), 
                             to_unicode=True, hide_utf8_warnings=True)
-        record = reader.next()
+        record = next(reader)
         self.assertEquals(type(record), Record)
         utitle = record['240']['a']
         self.assertEquals(type(utitle), unicode)
@@ -109,7 +109,7 @@ class MARC8Test(TestCase):
         reader = MARCReader(open('test/utf8_without_leader_flag.dat'), 
                             to_unicode=True, force_utf8=True,
                             hide_utf8_warnings=True)
-        record = reader.next()
+        record = next(reader)
         self.assertEquals(type(record), Record)
         utitle = record['240']['a']
         self.assertEquals(type(utitle), unicode)
