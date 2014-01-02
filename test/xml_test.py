@@ -1,7 +1,7 @@
 from os.path import getsize
 import sys
 import unittest
-from cStringIO import StringIO
+from io import StringIO
 
 import pymarc
 
