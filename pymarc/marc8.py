@@ -18,7 +18,7 @@ def marc8_to_unicode(marc8, hide_utf8_warnings=False):
     converter = MARC8ToUnicode(quiet=hide_utf8_warnings)
     try: 
         return converter.translate(marc8)
-    except IndexError, ie:
+    except IndexError as ie:
         # convert IndexError into UnicodeDecodeErrors
         raise UnicodeDecodeError("marc8_to_unicode", marc8, 0, len(marc8), "invalid multibyte character encoding")
 

@@ -123,7 +123,7 @@ class FieldTest(unittest.TestCase):
             self.field['h'] = 'error'
         except KeyError:
             pass
-        except Exception, e:
+        except Exception as e:
             self.fail('Unexpected exception thrown: %s' % e)
         else:
             self.fail('KeyError not thrown')
@@ -134,7 +134,7 @@ class FieldTest(unittest.TestCase):
             self.field['a'] = 'error'
         except KeyError:
             pass
-        except Exception, e:
+        except Exception as e:
             self.fail('Unexpected exception thrown: %s' % e)
         else:
             self.fail('KeyError not thrown')
