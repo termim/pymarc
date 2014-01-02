@@ -79,12 +79,12 @@ class JsonTest(unittest.TestCase):
         self.assertTrue('fields' in record)
         self.assertTrue('245' in record['fields'][0])
         self.assertEquals(record['fields'][0]['245'], {
-            u'subfields': [
-                {u'a': u'Python'},
-                {u'c': u'Guido'}
+            'subfields': [
+                {'a': 'Python'},
+                {'c': 'Guido'}
             ],
-            u'ind2': u'0',
-            u'ind1': u'1'})
+            'ind2': '0',
+            'ind1': '1'})
 
     def test_as_json_multiple(self):
         for record in self.reader:

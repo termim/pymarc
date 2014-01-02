@@ -54,7 +54,7 @@ class MARCReaderFileTest(unittest.TestCase):
         reader = pymarc.MARCReader(codecs.open('test/test.dat',
             encoding='utf-8'))
         record = next(reader)
-        self.assertEqual(record['245']['a'], u'ActivePerl with ASP and ADO /')
+        self.assertEqual(record['245']['a'], 'ActivePerl with ASP and ADO /')
 
     def test_bad_indicator(self):
         reader = pymarc.MARCReader(open('test/bad_indicator.dat'))
