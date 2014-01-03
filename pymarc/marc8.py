@@ -1,7 +1,7 @@
 # see http://www.loc.gov/marc/specifications/speccharmarc8.html
 "pymarc marc8.py file."
 
-import sys 
+import sys
 import unicodedata
 from pymarc import marc8_mapping
 
@@ -14,9 +14,9 @@ def marc8_to_unicode(marc8, hide_utf8_warnings=False):
 
     """
     # XXX: might be good to stash away a converter somehow
-    # instead of always re-creating it 
+    # instead of always re-creating it
     converter = MARC8ToUnicode(quiet=hide_utf8_warnings)
-    try: 
+    try:
         return converter.translate(marc8)
     except IndexError as ie:
         # convert IndexError into UnicodeDecodeErrors
@@ -93,12 +93,12 @@ class MARC8ToUnicode:
                         if pos == len(marc8_string):
                             break
 
-            
+
             def is_multibyte(charset):
                 return charset == 0x31
 
             mb_flag = is_multibyte(self.g0)
-                
+
             if mb_flag:
                 code_point = (ord(marc8_string[pos]) * 65536 +
                      ord(marc8_string[pos+1]) * 256 +
@@ -107,7 +107,7 @@ class MARC8ToUnicode:
             else:
                 code_point = ord(marc8_string[pos])
                 pos += 1
-                
+
             if (code_point < 0x20 or
                 (code_point > 0x80 and code_point < 0xa0)):
                 uni = chr(code_point)
@@ -128,11 +128,11 @@ class MARC8ToUnicode:
                 except KeyError:
                     pass
                 if not self.quiet:
-                    sys.stderr.write("couldn't find 0x%x in g0=%s g1=%s\n" % 
+                    sys.stderr.write("couldn't find 0x%x in g0=%s g1=%s\n" %
                         (code_point, self.g0, self.g1))
                 uni = ord(' ')
                 cflag = False
-                
+
             if cflag:
                 combinings.append(chr(uni))
             else:
@@ -143,9 +143,9 @@ class MARC8ToUnicode:
 
         # what to do if combining chars left over?
         uni_str = "".join(uni_list)
-        
-        # unicodedata.normalize not available until Python 2.3        
+
+        # unicodedata.normalize not available until Python 2.3
         if hasattr(unicodedata, 'normalize'):
             uni_str = unicodedata.normalize('NFC', uni_str)
-            
+
         return uni_str

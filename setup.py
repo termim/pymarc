@@ -25,7 +25,7 @@ Topic :: Text Processing :: General
 
 import pymarc
 
-setup( 
+setup(
     name = 'pymarc',
     version = version,
     url = 'http://github.com/edsu/pymarc',

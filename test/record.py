@@ -11,8 +11,8 @@ class RecordTest(unittest.TestCase):
     def test_add_field(self):
         record = Record()
         field = Field(
-            tag = '245', 
-            indicators = ['1', '0'], 
+            tag = '245',
+            indicators = ['1', '0'],
             subfields = ['a', 'Python', 'c', 'Guido'])
         record.add_field(field)
         self.failUnless(field in record.fields, msg='found field')
@@ -20,8 +20,8 @@ class RecordTest(unittest.TestCase):
     def test_remove_field(self):
         record = Record()
         field = Field(
-            tag = '245', 
-            indicators = ['1', '0'], 
+            tag = '245',
+            indicators = ['1', '0'],
             subfields = ['a', 'Python', 'c', 'Guido'])
         record.add_field(field)
         self.assertEqual(record['245']['a'], 'Python')
@@ -35,9 +35,9 @@ class RecordTest(unittest.TestCase):
         self.assertRaises(FieldNotFound, record.remove_field, field)
 
     def test_quick_access(self):
-        record = Record() 
+        record = Record()
         title = Field(
-            tag = '245', 
+            tag = '245',
             indicators = ['1', '0'],
             subfields = ['a', 'Python', 'c', 'Guido'])
         record.add_field(title)
@@ -59,15 +59,15 @@ class RecordTest(unittest.TestCase):
         self.assertEquals(len(record.fields), 0)
 
     def test_find(self):
-        record = Record() 
+        record = Record()
         subject1 = Field(
-            tag = '650', 
-            indicators = ['', '0'], 
+            tag = '650',
+            indicators = ['', '0'],
             subfields = ['a', 'Programming Language'])
         record.add_field(subject1)
         subject2 = Field(
-            tag = '650', 
-            indicators = ['', '0'], 
+            tag = '650',
+            indicators = ['', '0'],
             subfields = ['a', 'Object Oriented'])
         record.add_field(subject2)
         found = record.get_fields('650')
@@ -77,15 +77,15 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(len(found), 2, 'get_fields() with no tag')
 
     def test_multi_find(self):
-        record = Record() 
+        record = Record()
         subject1 = Field(
-            tag = '650', 
-            indicators = ['', '0'], 
+            tag = '650',
+            indicators = ['', '0'],
             subfields = ['a', 'Programming Language'])
         record.add_field(subject1)
         subject2 = Field(
-            tag = '651', 
-            indicators = ['', '0'], 
+            tag = '651',
+            indicators = ['', '0'],
             subfields = ['a', 'Object Oriented'])
         record.add_field(subject2)
         found = record.get_fields('650', '651')
@@ -93,7 +93,7 @@ class RecordTest(unittest.TestCase):
 
     def test_bad_leader(self):
         record = Record()
-        self.failUnlessRaises(RecordLeaderInvalid, 
+        self.failUnlessRaises(RecordLeaderInvalid,
             record.decode_marc, 'foo')
 
     def test_bad_base_address(self):
@@ -104,29 +104,29 @@ class RecordTest(unittest.TestCase):
     def test_title(self):
         record = Record()
         self.assertEquals(record.title(), None)
-        record.add_field(Field('245', [0, 1], 
+        record.add_field(Field('245', [0, 1],
             subfields=['a', 'Foo :', 'b', 'bar']))
         self.assertEquals(record.title(), 'Foo :bar')
 
         record = Record()
-        record.add_field(Field('245', [0, 1], 
+        record.add_field(Field('245', [0, 1],
             subfields=['a', "Farghin"]))
         self.assertEquals(record.title(), "Farghin")
 
     def test_isbn(self):
         record = Record()
-        self.assertEquals(record.isbn(), None) 
+        self.assertEquals(record.isbn(), None)
         record.add_field(Field('020', [0, 1], subfields=['a', '9781416566113']))
         self.assertEquals(record.isbn(), '9781416566113')
-        
+
         record = Record()
         record.add_field(Field('020', [0, 1], subfields=['a', '978-1416566113']))
         self.assertEquals(record.isbn(), '9781416566113')
-        
+
         record = Record()
         record.add_field(Field('020', [0, 1], subfields=['a', 'ISBN-978-1416566113']))
         self.assertEquals(record.isbn(), '9781416566113')
-        
+
         record = Record()
         record.add_field(Field('020', [' ', ' '], subfields=['a', '0456789012 (reel 1)']))
         self.assertEquals(record.isbn(), '0456789012')
@@ -134,64 +134,64 @@ class RecordTest(unittest.TestCase):
         record = Record()
         record.add_field(Field('020', [' ', ' '], subfields=['a', '006073132X']))
         self.assertEquals(record.isbn(), '006073132X')
-        
+
     def test_multiple_isbn(self):
         reader = MARCReader(open('test/multi_isbn.dat'))
         record = next(reader)
         self.assertEquals(record.isbn(), '0914378287')
-    
+
     def test_author(self):
         record = Record()
         self.assertEquals(record.author(), None)
-        record.add_field(Field('100', [1, 0], 
+        record.add_field(Field('100', [1, 0],
             subfields=['a', 'Bletch, Foobie,', 'd', '1979-1981.']))
         self.assertEquals(record.author(), 'Bletch, Foobie, 1979-1981.')
-        
+
         record = Record()
-        record.add_field(Field('130', [0, ' '], 
+        record.add_field(Field('130', [0, ' '],
             subfields=['a', 'Bible.', 'l', 'Python.']))
         self.assertEquals(record.author(), None)
 
     def test_uniformtitle(self):
         record = Record()
         self.assertEquals(record.uniformtitle(), None)
-        record.add_field(Field('130', [0, ' '], 
+        record.add_field(Field('130', [0, ' '],
             subfields=['a', "Tosefta.", 'l', "English.", 'f', "1977."]))
         self.assertEquals(record.uniformtitle(), "Tosefta. English. 1977.")
 
         record = Record()
-        record.add_field(Field('240', [1, 4], 
+        record.add_field(Field('240', [1, 4],
             subfields=['a', "The Pickwick papers.", 'l', "French."]))
-        self.assertEquals(record.uniformtitle(), 
+        self.assertEquals(record.uniformtitle(),
                 "The Pickwick papers. French.")
-    
+
     def test_subjects(self):
         record = Record()
         subject1 = '=630  0\\$aTosefta.$lEnglish.$f1977.'
         subject2 = '=600  10$aLe Peu, Pepe.'
         shlist = [subject1, subject2]
         self.assertEquals(record.subjects(), [])
-        record.add_field(Field('630', [0, ' '], 
+        record.add_field(Field('630', [0, ' '],
             subfields=['a', "Tosefta.", 'l', "English.", 'f', "1977."]))
-        record.add_field(Field('730', [0, ' '], 
+        record.add_field(Field('730', [0, ' '],
             subfields=['a', "Tosefta.", 'l', "English.", 'f', "1977."]))
-        record.add_field(Field('600', [1, 0], 
+        record.add_field(Field('600', [1, 0],
             subfields=['a', "Le Peu, Pepe."]))
         self.assertEquals(len(record.subjects()), 2)
         self.assertEquals(record.subjects()[0].__str__(), subject1)
         self.assertEquals(record.subjects()[1].__str__(), subject2)
         rshlist = [rsh.__str__() for rsh in record.subjects()]
         self.assertEquals(shlist, rshlist)
-     
+
     def test_added_entries(self):
         record = Record()
         ae1 = '=730  0\\$aTosefta.$lEnglish.$f1977.'
         ae2 = '=700  10$aLe Peu, Pepe.'
         aelist = [ae1, ae2]
         self.assertEquals(record.addedentries(), [])
-        record.add_field(Field('730', [0, ' '], 
+        record.add_field(Field('730', [0, ' '],
             subfields=['a', "Tosefta.", 'l', "English.", 'f', "1977."]))
-        record.add_field(Field('700', [1, 0], 
+        record.add_field(Field('700', [1, 0],
             subfields=['a', "Le Peu, Pepe."]))
         record.add_field(Field('245', [0, 0],
             subfields=['a', "Le Peu's Tosefa."]))
@@ -240,7 +240,7 @@ class RecordTest(unittest.TestCase):
         self.assertEquals(record.location()[1].__str__(), loc2)
         rloclist = [rloc.__str__() for rloc in record.location()]
         self.assertEquals(loclist, rloclist)
-        
+
     def test_notes(self):
         record = Record()
         self.assertEquals(record.notes(), [])
@@ -283,7 +283,7 @@ class RecordTest(unittest.TestCase):
 
 def suite():
     test_suite = unittest.makeSuite(RecordTest, 'test')
-    return test_suite 
+    return test_suite
 
 if __name__ == '__main__':
     unittest.main()

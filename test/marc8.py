@@ -6,7 +6,7 @@ import codecs
 from pymarc import marc8_to_unicode, Field, Record, MARCReader, MARCWriter
 
 class MARC8Test(TestCase):
-    
+
     def test_marc8_reader(self):
         reader = MARCReader(open('test/marc8.dat'))
         r =  next(reader)
@@ -22,14 +22,14 @@ class MARC8Test(TestCase):
         utitle = r['240']['a']
         self.assertEquals(type(utitle), str)
         self.assertEquals(utitle, 'De la solitude \xe0 la communaut\xe9.')
-        
+
     def test_marc8_reader_to_unicode_bad_eacc_sequence(self):
         reader = MARCReader(open('test/bad_eacc_encoding.dat'), to_unicode=True, hide_utf8_warnings=True)
         try:
             r =  next(reader)
-            self.assertFalse("Was able to decode invalid MARC8") 
+            self.assertFalse("Was able to decode invalid MARC8")
         except UnicodeDecodeError:
-            self.assertTrue("Caught UnicodeDecodeError as expected") 
+            self.assertTrue("Caught UnicodeDecodeError as expected")
 
     def test_marc8_reader_to_unicode_bad_escape(self):
         reader = MARCReader(open('test/bad_marc8_escape.dat'), to_unicode=True)
@@ -77,7 +77,7 @@ class MARC8Test(TestCase):
         self.assertEquals(utitle,
             'De la solitude a\xcc\x80 la communaute\xcc\x81.')
 
-        reader = MARCReader(open('test/utf8_with_leader_flag.dat'), 
+        reader = MARCReader(open('test/utf8_with_leader_flag.dat'),
                             to_unicode=True)
         record = next(reader)
         self.assertEquals(type(record), Record)
@@ -95,7 +95,7 @@ class MARC8Test(TestCase):
         self.assertEquals(utitle,
             'De la solitude a\xcc\x80 la communaute\xcc\x81.')
 
-        reader = MARCReader(open('test/utf8_without_leader_flag.dat'), 
+        reader = MARCReader(open('test/utf8_without_leader_flag.dat'),
                             to_unicode=True, hide_utf8_warnings=True)
         record = next(reader)
         self.assertEquals(type(record), Record)
@@ -106,7 +106,7 @@ class MARC8Test(TestCase):
         self.assertEquals(utitle, 'De la solitude a   la communaute .')
 
         # force reading as utf-8
-        reader = MARCReader(open('test/utf8_without_leader_flag.dat'), 
+        reader = MARCReader(open('test/utf8_without_leader_flag.dat'),
                             to_unicode=True, force_utf8=True,
                             hide_utf8_warnings=True)
         record = next(reader)
@@ -126,4 +126,4 @@ class MARC8Test(TestCase):
 
 def suite():
     test_suite = makeSuite(MARC8Test, 'test')
-    return test_suite 
+    return test_suite
