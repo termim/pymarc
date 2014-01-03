@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 from test import record
 from test import field

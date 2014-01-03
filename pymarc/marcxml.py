@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 "pymarc marcxml file."
 
 from xml.sax import make_parser

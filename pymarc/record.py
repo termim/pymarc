@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import re
 
 from pymarc.exceptions import BaseAddressInvalid, RecordLeaderInvalid, \

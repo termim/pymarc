@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 "The pymarc.field file."
 
 from pymarc.constants import SUBFIELD_INDICATOR, END_OF_FIELD

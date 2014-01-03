@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # see http://www.loc.gov/marc/specifications/speccharmarc8.html
 "pymarc marc8.py file."
 

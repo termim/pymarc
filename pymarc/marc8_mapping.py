@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 CHARSET_34 = { # Extended Arabic
     0xa1: (0x6fd, 0), # DOUBLE ALEF WITH HAMZA ABOVE / ARABIC SIGN SINDHI AMPERSAND
     0xa2: (0x672, 0), # ARABIC LETTER ALEF WITH WAVY HAMZA ABOVE

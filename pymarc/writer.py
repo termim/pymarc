@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pymarc import Record, WriteNeedsRecord
 
 class Writer(object):
