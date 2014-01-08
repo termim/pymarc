@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import re
+import json
+from itertools import zip_longest
 
 from pymarc.exceptions import BaseAddressInvalid, RecordLeaderInvalid, \
         BaseAddressNotFound, RecordDirectoryInvalid, NoFieldsFound, \
@@ -10,64 +12,6 @@ from pymarc.field import Field, SUBFIELD_INDICATOR, END_OF_FIELD, \
         map_marc8_field
 from pymarc.marc8 import marc8_to_unicode
 
-try:
-    # the json module was included in the stdlib in python 2.6
-    # http://docs.python.org/library/json.html
-    import json
-except ImportError:
-    # simplejson 2.0.9 is available for python 2.4+
-    # http://pypi.python.org/pypi/simplejson/2.0.9
-    # simplejson 1.7.3 is available for python 2.3+
-    # http://pypi.python.org/pypi/simplejson/1.7.3
-    import simplejson as json
-
-try:
-    # izip_longest first appeared in python 2.6
-    # http://docs.python.org/library/itertools.html#itertools.izip_longest
-    from itertools import izip_longest
-except ImportError:
-    # itertools was introducted in python 2.3
-    # we just define the required classes and functions
-    # for 2.3 <= python < 2.6 here
-    class ZipExhausted(Exception):
-        pass
-
-    def _next(obj):
-        """
-        ``next`` (http://docs.python.org/library/functions.html#next)
-        was introduced in python 2.6 - and if we are here
-        (no ``izip_longest``), than we need to define this."""
-        return next(obj)
-
-    def izip_longest(*args, **kwds):
-        """
-        Make an iterator that aggregates elements from each of the iterables.
-        If the iterables are of uneven length, missing values are filled-in
-        with fillvalue.
-        Iteration continues until the longest iterable is exhausted.
-
-        This function is available in the standard lib since 2.6.
-        """
-        # chain and repeat are available since python 2.3
-        from itertools import chain, repeat
-
-        # izip_longest('ABCD', 'xy', fillvalue='-') --> Ax By C- D-
-        fillvalue = kwds.get('fillvalue', '')
-        counter = [len(args) - 1]
-        def sentinel():
-            if not counter[0]:
-                raise ZipExhausted
-            counter[0] -= 1
-            yield fillvalue
-        fillers = repeat(fillvalue)
-        iterators = [chain(it, sentinel(), fillers) for it in args]
-        try:
-            while iterators:
-                yield tuple(map(_next, iterators))
-        except ZipExhausted:
-            pass
-        finally:
-            del chain
 
 isbn_regex = re.compile(r'([0-9\-xX]+)')
 
@@ -398,7 +342,7 @@ class Record(object):
                 fd['subfields'] = []
                 fd['ind1'] = field.indicator1
                 fd['ind2'] = field.indicator2
-                for tag, value in izip_longest(*[iter(field.subfields)] * 2):
+                for tag, value in zip_longest(*[iter(field.subfields)] * 2):
                     fd['subfields'].append({tag: value})
                 record['fields'].append({field.tag: fd})
         return record  # as dict
