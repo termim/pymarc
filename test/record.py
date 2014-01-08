@@ -4,7 +4,7 @@ import unittest
 
 from pymarc.reader import MARCReader
 from pymarc.record import Record
-from pymarc.field import Field
+from pymarc.field import Field, ControlField
 from pymarc.exceptions import BaseAddressInvalid, RecordLeaderInvalid, \
         FieldNotFound
 
@@ -33,7 +33,7 @@ class RecordTest(unittest.TestCase):
         self.assertEqual(record['245'], None)
 
         # try removing a field that doesn't exist
-        field = Field('001', data='abcd1234')
+        field = ControlField('001', data='abcd1234')
         self.assertRaises(FieldNotFound, record.remove_field, field)
 
     def test_quick_access(self):
