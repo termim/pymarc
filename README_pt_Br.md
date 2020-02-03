@@ -29,7 +29,7 @@ Você provavelmente vai querer usar o pip para instalar o pymarc:
 
 Se você quiser baixar e instalar a versão mais recente, precisará do git:
 
-    git clone git://github.com/edsu/pymarc.git
+    git clone git://gitlab.com/pymarc/pymarc.git
 
 Você também vai precisar do [setuptools](https://pypi.python.org/pypi/setuptools#installation-instructions). Após ter a fonte e o setuptools, execute o pymarc test suite para garantirque as tudo está em ordem com a distribuição:
 
@@ -328,7 +328,12 @@ print(records[0])
 Suporte
 -------
 
-Os desenvolvedores pymarc incentivam você a participar do [pymarc Google Group](http://groups.google.com/group/pymarc) se precisar de ajuda.  Além disso, sinte-se à vontade para usar o [issue tracking](https://github.com/edsu/pymarc/issues) no Github para submeter novos recursos ou relatórios de bugs. Se você tiver um comichão, copie-a e envie PRs no [Github](http://github.com/edsu/pymarc).
+Os desenvolvedores pymarc incentivam você a participar do [pymarc Google
+Group](http://groups.google.com/group/pymarc) se precisar de ajuda.  Além disso,
+sinte-se à vontade para usar o [issue
+tracking](https://gitlab.com/pymarc/pymarc/issues) no GitLab para submeter novos
+recursos ou relatórios de bugs. Se você tiver um comichão, copie-a e envie PRs
+no [GitLab](http://gitlab.com/pymarc/pymarc).
 
 Se você iniciou a trabalhar com MARC, pode sentir que precisa de apoio moral além de técnico. O canal [#code4lib](irc://freenode.net/code4lib) em [Freenode](http://freenode.net) é um bom lugar para ambos.
 

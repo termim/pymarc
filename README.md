@@ -30,7 +30,7 @@ You'll probably just want to use pip to install pymarc:
 
 If you'd like to download and install the latest source you'll need git:
 
-    git clone git://github.com/edsu/pymarc.git
+    git clone git://gitlab.com/pymarc/pymarc.git
 
 You'll also need [setuptools](https://pypi.python.org/pypi/setuptools#installation-instructions). Once you have the source and setuptools run the pymarc test
 suite to make sure things are in order with the distribution:
@@ -358,7 +358,12 @@ print(records[0])
 Support
 -------
 
-The pymarc developers encourage you to join the [pymarc Google Group](http://groups.google.com/group/pymarc) if you need help.  Also, please feel free to use [issue tracking](https://github.com/edsu/pymarc/issues) on Github to submit feature requests or bug reports. If you've got an itch to scratch, please scratch it, and send merge requests on [Github](http://github.com/edsu/pymarc).
+The pymarc developers encourage you to join the [pymarc Google
+Group](http://groups.google.com/group/pymarc) if you need help.  Also, please
+feel free to use [issue tracking](https://gitlab.com/pymarc/pymarc/issues) on
+GitLab to submit feature requests or bug reports. If you've got an itch to
+scratch, please scratch it, and send merge requests on
+[GitLab](http://gitlab.com/pymarc/pymarc).
 
 If you start working with MARC you may feel like you need moral support
 in addition to technical support. The [#code4lib](irc://freenode.net/code4lib)
