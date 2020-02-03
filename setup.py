@@ -29,7 +29,7 @@ with open("README.md") as f:
 setup(
     name="pymarc",
     version=version,
-    url="http://github.com/edsu/pymarc",
+    url="http://gitlab.com/pymarc/pymarc",
     author="Ed Summers",
     author_email="ehs@pobox.com",
     license="http://www.opensource.org/licenses/bsd-license.php",
