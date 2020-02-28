@@ -279,7 +279,7 @@ class Record:
         # determine the number of fields in record
         if len(directory) % DIRECTORY_ENTRY_LEN != 0:
             raise RecordDirectoryInvalid
-        field_total = len(directory) / DIRECTORY_ENTRY_LEN
+        field_total = len(directory) // DIRECTORY_ENTRY_LEN
 
         # add fields to our record using directory offsets
         field_count = 0
