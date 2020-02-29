@@ -70,8 +70,8 @@ class MARCReader(Reader):
     if you have a file in incorrect encode and you know what it is, you can
     try to use your encode in parameter "file_encoding".
 
-    You may want to parse data in a permissive way to avoid stop on the first
-    wrong record and reads as much as records as possible:
+    You may want to parse data in a permissive way to avoid stopping on the first
+    wrong record and read as much records as possible:
 
     .. code-block:: python
 
