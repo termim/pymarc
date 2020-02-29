@@ -41,9 +41,7 @@ test-3.7-pypy:
   before_script:
     # black requires typed-ast which pypy currently doesn't support:
     # https://github.com/psf/black/issues/727#issuecomment-547338207
-    - /opt/python/pp373-pypy36_pp73/bin/pip install flake8
-    - /opt/python/pp373-pypy36_pp73/bin/pip install flake8-docstrings
+    # so we just install what we need to run the tests
+    - /opt/pypy/pypy3.6-7.3.0/bin/pip install flake8 flake8-docstrings
   script:
-    - /opt/python/pp373-pypy36_pp73/bin/flake8 .
-      # - /opt/python/pp373-pypy36_pp73/bin/black --check --diff .
-    - /opt/python/pp373-pypy36_pp73/bin/python setup.py test
+    - /opt/pypy/pypy3.6-7.3.0/bin/python setup.py test
