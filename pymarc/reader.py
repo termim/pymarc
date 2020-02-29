@@ -32,7 +32,7 @@ class MARCReader(Reader):
         from pymarc import MARCReader
 
         ## pass in a file object
-        reader = MARCReader(file('file.dat'))
+        reader = MARCReader(open('file.dat', 'rb'))
         for record in reader:
             ...
 
@@ -46,7 +46,7 @@ class MARCReader(Reader):
 
     .. code-block:: python
 
-        reader = MARCReader(file('file.dat'), to_unicode=True)
+        reader = MARCReader(open('file.dat', 'rb'), to_unicode=True)
 
     This will decode from MARC-8 or UTF-8 depending on the value in the
     MARC leader at position 9.
@@ -57,7 +57,7 @@ class MARCReader(Reader):
 
     .. code-block:: python
 
-        reader = MARCReader(file('file.dat'), to_unicode=True,
+        reader = MARCReader(open('file.dat', 'rb'), to_unicode=True,
             force_utf8=True)
 
     If you find yourself in the unfortunate position of having data that is
@@ -75,7 +75,7 @@ class MARCReader(Reader):
 
     .. code-block:: python
 
-        reader = MARCReader(file('file.dat'), permissive=True)
+        reader = MARCReader(open('file.dat', 'rb'), permissive=True)
 
     In such case ``None`` is return by the iterator.
     This give you the full control to implement the expected behavior getting
@@ -84,7 +84,7 @@ class MARCReader(Reader):
 
     .. code-block:: python
 
-        reader = MARCReader(file('file.dat'), permissive=True)
+        reader = MARCReader(open('file.dat', 'rb'), permissive=True)
         for record in reader:
             if record is None:
                 print(
