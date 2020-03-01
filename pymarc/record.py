@@ -511,27 +511,18 @@ class Record:
         can be found at the following URL:
         https://www.fdlp.gov/file-repository/gpo-cataloging/1172-gpo-classification-manual
         """
-        if self["086"]:
-            return self["086"].format_field()
-        return None
+        field = self["086"]
+        return field.format_field() if field else None
 
     def author(self):
         """Returns the author from field 100, 110 or 111."""
-        if self["100"]:
-            return self["100"].format_field()
-        elif self["110"]:
-            return self["110"].format_field()
-        elif self["111"]:
-            return self["111"].format_field()
-        return None
+        field = self["100"] or self["110"] or self["111"]
+        return field.format_field() if field else None
 
     def uniformtitle(self):
         """Returns the uniform title from field 130 or 240."""
-        if self["130"]:
-            return self["130"].format_field()
-        elif self["240"]:
-            return self["240"].format_field()
-        return None
+        field = self["130"] or self["240"]
+        return field.format_field() if field else None
 
     def series(self):
         """Returns series fields.
